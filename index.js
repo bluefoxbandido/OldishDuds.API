@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const user = require("./routes/user");
 const InitiateMongoServer = require('./config/db');
+const pingmydyno = require('pingmydyno');
 
 InitiateMongoServer();
 
@@ -17,6 +18,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', user);
+
+app.listen(PORT, () => {
+    pingmydyno('https://api-oldishduds.herokuapp.com');
+});
 
 app.listen(PORT, (req, res) => {
     console.log(`Server Started: PORT ${PORT}`);
