@@ -19,9 +19,6 @@ app.get('/', (req, res) => {
 
 app.use('/user', user);
 
-app.listen(PORT, () => {
-    pingmydyno('https://api-oldishduds.herokuapp.com');
-});
 
 app.listen(PORT, (req, res) => {
     console.log(`Server Started: PORT ${PORT}`);
