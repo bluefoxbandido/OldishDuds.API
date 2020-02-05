@@ -90,4 +90,26 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
+router.delete('/delete/:name', async (req, res) => {
+    const name = req.body;
+    Product.findOneAndDelete(name)
+        .then(product => {
+            if(!product) {
+                return res.status(404).send({
+                    msg: "No product found " + name
+                });
+            }
+            res.send({ msg: "Product deleted" });
+        }).catch(err => {
+            if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    msg: "Product not found"
+                });
+            }
+            return res.status(500).send({
+                msg: "Could not delete."
+            })
+        })
+})
+
 module.exports = router;
