@@ -17,9 +17,11 @@ router.get('/all', async (req, res) => {
     }
 });
 
-router.get('/:name', auth, async (req, res) => {
+router.post('/:name', auth, async (req, res) => {
+    const name = req.body;
+    console.log(name);
     try {
-        const product = await Product.findOne();
+        const product = await Product.findOne(name);
         res.json(product);
     } catch (e) {
         res.send({ msg: "Error in fetching product" });
